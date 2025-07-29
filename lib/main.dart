@@ -13,18 +13,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // เมธอด build() ส่งคืนโครงสร้างต้นไม้วิดเจ็ตสำหรับวิดเจ็ตนี้
     return MaterialApp(
+      title: 'My Awesome App',
+      debugShowCheckedModeBanner: false, // ซ่อนแบนเนอร์ debug
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
-        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true, // ใช้ Material Design เวอร์ชันล่าสุด
       ),
-      title: 'Flutter Demo',
-      home: MyHomePage(
-        // โครงสร้างหน้าจอพื้นฐาน
-      ),
+      home: const MyHomePage(), // วิดเจ็ตหน้าจอหลักของคุณ
     );
   }
 }
 
+// ตัวอย่างวิดเจ็ตที่ส่งคืนโดย property 'home' ของ MaterialApp
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
@@ -32,28 +32,24 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // ให้โครงสร้างแอปพื้นฐาน
-      appBar: AppBar(
-        title: const Text('Chapter 3 Lab'),
-        backgroundColor: Colors.teal, // ปรับแต่งสี AppBar
-      ),
+      appBar: AppBar(),
       body: Center(
-        // จัดกึ่งกลาง Container
         child: Container(
-          padding: EdgeInsets.all(50.0), // กล่อง
-          width: 300.0,
+          width: 500.0,
           height: 200.0,
           decoration: BoxDecoration(
             color: Colors.amber,
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            borderRadius: BorderRadius.horizontal(
+              left: Radius.circular(10.0),
+              right: Radius.elliptical(50.0, 10)
+            )
           ),
-          child: const Text(
-            'inside container',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
+          child: Center(
+            child: Image.asset('assets/image/view.jpg',
+              width: 300,
+              height: 200,
+              fit: BoxFit.contain,
+              ),
           ),
         ),
       ),
