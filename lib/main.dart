@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart'; // Import ไลบรารี Material ของ Flutter
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   // จุดเริ่มต้นของแอป Flutter
@@ -28,37 +29,97 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
+  // ภายในเมธอด build ของ MyHomePage
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // ให้โครงสร้างแอปพื้นฐาน
-      appBar: AppBar(),
-      body: Center(
-        child: Container(
-          width: 500.0,
-          height: 200.0,
-          decoration: BoxDecoration(
-            color: Colors.amber,
-            borderRadius: BorderRadius.horizontal(
-              left: Radius.circular(10.0),
-              right: Radius.elliptical(50.0, 10)
-            )
-          ),
-          child: Center(
-            child: Image.asset('assets/image/view.jpg',
-              width: 300,
-              height: 200,
-              fit: BoxFit.contain,
+      appBar: AppBar(
+        title: const Text('Home Page'),
+        backgroundColor: Colors.blue,
+      ), // ปรับแต่งสี AppBar
+      body: Padding(
+        // เพิ่ม Padding รอบ Column
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Image.network('https://picsum.photos/seed/flutter/400/200'),
+              const SizedBox(height: 10.0),
+            //Image.asset(
+            //  'assets/image/view.jpg',),
+            //  const SizedBox(height: 10.0),
+            Image.asset(
+              'D:/66314477/flutter_windows_3.32.7-stable/flutter/flutter_application_1/assets/image/view.jpg',
+              errorBuilder: (context, error, stackTrace) {
+                return const Text(
+                  'เกิดข้อผิดพลาดในการโหลด asset',
+                  style: TextStyle(color: Colors.red),
+                );
+              },
+            ),
+            const SizedBox(height: 10.0), // เพิ่มช่องว่างใต้ asset image
+            // ภายในลิสต์ children ของ Column, หลัง SizedBox ตัวที่สอง
+            Container(
+              // กล่องสีอำพันจากแล็บ บทที่ 3
+              width: 200.0, // หรือปรับตามต้องการ
+              padding: const EdgeInsets.all(14.0),
+              decoration: BoxDecoration(
+                color: Colors.amber.shade100, // สีอำพันอ่อนลงเล็กน้อย
+                borderRadius: BorderRadius.circular(10.0),
               ),
-          ),
+              child: Text(
+                // คงข้อความไว้ก่อน
+                'สวัสดี วิดเจ็ต Flutter!',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.lacquer(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+            ),
+            const SizedBox(height: 9.0), // เว้นวรรคมากขึ้นก่อนปุ่ม
+            // ... ปุ่มจะตามมา ...
+            // ภายในลิสต์ children ของ Column, หลัง SizedBox สุดท้าย
+            Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // จัดกึ่งกลางปุ่มแนวนอน
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    print('กดปุ่ม Elevated');
+                  },
+                  child: const Text('Elevated'),
+                ),
+                const SizedBox(width: 9.0), // เว้นวรรคระหว่างปุ่ม
+                OutlinedButton(
+                  onPressed: () {
+                    print('กดปุ่ม Outlined');
+                  },
+                  child: const Text('Outlined'),
+                ),
+                const SizedBox(width: 9.0), // เว้นวรรคระหว่างปุ่ม
+                TextButton(
+                  onPressed: () {
+                    print('กดปุ่ม Text');
+                  },
+                  child: const Text('Text'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 9.0), // เว้นวรรคใต้ปุ่ม
+            // ภายในลิสต์ children ของ Column, หลัง Row และ SizedBox
+            IconButton(
+              onPressed: () {
+                print('กดไอคอน Info');
+              },
+              icon: const Icon(Icons.info_outline),
+              iconSize: 15.0,
+              tooltip: 'ข้อมูล', // ข้อความช่วยเหลือ
+              color: Colors.blueGrey,
+            ),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // การกระทำที่จะทำเมื่อกดปุ่ม
-          print('FAB Pressed!');
-        },
-        child: const Icon(Icons.add), // ไอคอนสำหรับปุ่ม
       ),
     );
   }
